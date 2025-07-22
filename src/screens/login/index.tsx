@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { useState } from 'react';
 import {
   Text,
@@ -10,6 +11,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { BaseApp } from '~/components/BaseApp';
+import { login } from '~/store/Login';
 
 export default function LoginPage() {
   const navigation: any = useNavigation();
@@ -18,19 +20,22 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  function onLogin() {
+  async function onLogin() {
     setError('');
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
 
-      if (email === '' || senha === '') {
-        setError('Preencha todos os campos!');
-        return;
-      }
+    if (email === '' || senha === '') {
+      setError('Preencha todos os campos!');
+      return;
+    }
 
+    const responde = await login({ email, senha });
+
+    if (responde != undefined) {
       navigation.navigate('Home');
-    }, 1200);
+    } else {
+      setLoading(false);
+    }
   }
 
   return (
