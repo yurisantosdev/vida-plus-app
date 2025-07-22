@@ -15,7 +15,7 @@ export default function Sidebar() {
   }
 
   return (
-    <View className="mb-5 ml-4 mr-4 flex-row items-center justify-between">
+    <View className="mb-5 ml-4 mr-4 flex-row items-center justify-between bg-slate-200">
       <TouchableOpacity onPress={handleProfile} className="flex-row items-center gap-1">
         <Ionicons name="person-outline" size={28} color="#3b82f6" />
       </TouchableOpacity>

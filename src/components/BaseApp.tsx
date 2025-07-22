@@ -4,7 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar';
 import Voltar from './Voltar';
-import Title from './Title';
+import { Title } from './Title';
 
 export function BaseApp({ navbar = true, sidebar = true, voltar = false, ...props }: BaseAppType) {
   return (
@@ -20,7 +20,7 @@ export function BaseApp({ navbar = true, sidebar = true, voltar = false, ...prop
             </View>
           )}
           {props.title && (
-            <View className={voltar ? 'right-12 w-[80%] text-center' : 'w-full'}>
+            <View className={voltar ? 'right-12 mb-3 w-[80%] text-center' : 'mb-3 w-full'}>
               <Title title={props.title} />
             </View>
           )}
@@ -41,14 +41,14 @@ export function BaseApp({ navbar = true, sidebar = true, voltar = false, ...prop
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f4f4f5',
+    backgroundColor: '#e2e8f0',
   },
   scrollContainer: {
     flexGrow: 1,
   },
   innerContainer: {
     flex: 1,
-    backgroundColor: '#f4f4f5',
+    backgroundColor: '#e2e8f0',
   },
   loadingOverlay: {
     ...StyleSheet.absoluteFillObject,

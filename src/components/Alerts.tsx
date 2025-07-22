@@ -1,10 +1,10 @@
-import { Dialog, Toast } from 'react-native-alert-notification'
-import { AlertDialogType } from '../types/AlertDialogType'
-import { AlertToastType } from '../types/AlertToastType'
-import { Vibration } from 'react-native'
+import { Dialog, Toast } from 'react-native-alert-notification';
+import { AlertDialogType } from '../types/AlertDialogType';
+import { AlertToastType } from '../types/AlertToastType';
+import { Vibration } from 'react-native';
 
 export function AlertDialog(props: AlertDialogType) {
-  Vibration.vibrate()
+  Vibration.vibrate();
 
   Dialog.show({
     type: props.typeAlert,
@@ -12,17 +12,17 @@ export function AlertDialog(props: AlertDialogType) {
     textBody: props.textBody,
     button: props.textButton,
     onPressButton: props.onPressButton ? props.onPressButton : null,
-    closeOnOverlayTap: true
-  })
+    closeOnOverlayTap: true,
+  });
 }
 
 export function AlertToast(props: AlertToastType) {
-  Vibration.vibrate()
+  Vibration.vibrate();
 
   Toast.show({
     type: props.typeAlert,
     title: props.title,
     textBody: props.textBody,
-    autoClose: 3000
-  })
+    autoClose: 3000,
+  });
 }

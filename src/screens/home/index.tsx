@@ -11,7 +11,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { BaseApp } from '~/components/BaseApp';
 import { useRef } from 'react';
-import Title from '~/components/Title';
+import { Title } from '~/components/Title';
 
 const modules = [
   {

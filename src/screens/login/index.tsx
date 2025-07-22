@@ -28,8 +28,11 @@ export default function LoginPage() {
 
     if (email === '' || senha === '') {
       setError('Preencha todos os campos!');
+      setLoading(false);
       return;
     }
+
+    navigation.navigate('Home');
 
     const responde = await login({ email, senha });
 
