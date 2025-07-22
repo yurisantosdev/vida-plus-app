@@ -12,6 +12,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { BaseApp } from '~/components/BaseApp';
 import { login } from '~/store/Login';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function LoginPage() {
   const navigation: any = useNavigation();
@@ -19,6 +20,7 @@ export default function LoginPage() {
   const [senha, setSenha] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [mostrarSenha, setMostrarSenha] = useState(false);
 
   async function onLogin() {
     setError('');
@@ -66,14 +68,23 @@ export default function LoginPage() {
 
           <View className="mb-2 w-full">
             <Text className="mb-1 ml-1 text-neutral-700">Senha</Text>
-            <TextInput
-              className="rounded-xl border border-neutral-300 bg-neutral-100 px-4 py-3 text-base text-neutral-900"
-              placeholder="Digite sua senha"
-              placeholderTextColor="#A3A3A3"
-              secureTextEntry
-              value={senha}
-              onChangeText={setSenha}
-            />
+            <View className="flex-row items-center rounded-xl border border-neutral-300 bg-neutral-100 px-4">
+              <TextInput
+                className="flex-1 py-3 text-base text-neutral-900"
+                placeholder="Digite sua senha"
+                placeholderTextColor="#A3A3A3"
+                secureTextEntry={!mostrarSenha}
+                value={senha}
+                onChangeText={setSenha}
+              />
+              <TouchableOpacity onPress={() => setMostrarSenha(!mostrarSenha)}>
+                <Ionicons
+                  name={mostrarSenha ? 'eye-off-outline' : 'eye-outline'}
+                  size={22}
+                  color="#737373"
+                />
+              </TouchableOpacity>
+            </View>
           </View>
 
           {error ? (
