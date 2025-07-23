@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { BaseApp } from '~/components/BaseApp';
 import { login } from '~/store/Login';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginPage() {
   const navigation: any = useNavigation();
@@ -32,11 +33,13 @@ export default function LoginPage() {
       return;
     }
 
-    navigation.navigate('Home');
+    const response = await login({ email, senha });
 
-    const responde = await login({ email, senha });
+    if (response != undefined) {
+      console.log(response.user.uscodigo);
+      await AsyncStorage.setItem('token', response.access_token);
+      await AsyncStorage.setItem('uscodigo', response.user.uscodigo);
 
-    if (responde != undefined) {
       navigation.navigate('Home');
     } else {
       setLoading(false);

@@ -11,8 +11,7 @@ export default function Navbar() {
     { name: 'Financeiro', icon: 'cash-outline', route: 'Finance' },
     { name: 'Veículos', icon: 'car-sport-outline', route: 'Garage' },
     { name: 'Agenda', icon: 'calendar-outline', route: 'Calendar' },
-    { name: 'Mercado', icon: 'basket-outline', route: 'Shop' },
-    { name: 'Tarefas', icon: 'list-outline', route: 'Tasks' },
+    { name: 'Checklists', icon: 'list-outline', route: 'Checklists' },
   ];
 
   return (

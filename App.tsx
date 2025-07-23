@@ -6,12 +6,12 @@ import LoginPage from '~/screens/login';
 import HomePage from '~/screens/home';
 import Finance from '~/screens/finance';
 import Garage from '~/screens/garage';
-import Shop from '~/screens/shop';
+import Checklists from '~/screens/checklists';
 import Calendar from '~/screens/calendar';
 import Tasks from '~/screens/tasks';
 import Perfil from '~/screens/perfil';
 import EsqueciSenha from '~/screens/esqueciSenha';
-import CadastroShop from '~/screens/shop/cadastro';
+import CadastroChecklists from '~/screens/checklists/cadastro';
 import { AlertNotificationRoot } from 'react-native-alert-notification';
 
 export default function App() {
@@ -45,8 +45,12 @@ export default function App() {
             <Stack.Screen name="Home" options={{ animation: 'none' }} component={HomePage} />
             <Stack.Screen name="Finance" options={{ animation: 'none' }} component={Finance} />
             <Stack.Screen name="Garage" options={{ animation: 'none' }} component={Garage} />
-            <Stack.Screen name="Shop" options={{ animation: 'none' }} component={Shop} />
-            <Stack.Screen name="CadastroShop" component={CadastroShop} />
+            <Stack.Screen
+              name="Checklists"
+              options={{ animation: 'none' }}
+              component={Checklists}
+            />
+            <Stack.Screen name="CadastroChecklists" component={CadastroChecklists} />
             <Stack.Screen name="Calendar" options={{ animation: 'none' }} component={Calendar} />
             <Stack.Screen name="Tasks" options={{ animation: 'none' }} component={Tasks} />
             <Stack.Screen name="Perfil" component={Perfil} />

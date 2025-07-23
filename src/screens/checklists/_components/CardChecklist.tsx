@@ -5,7 +5,7 @@ import { CardShopInterface } from '~/interfaces/CardShopInterface';
 import { SubTitleIcon } from '~/components/Title';
 import { ApplyAnimated } from '~/services/animated';
 
-export default function CardShop({ title, quantidade, index, ...props }: CardShopInterface) {
+export default function CardChecklist({ title, quantidade, index, ...props }: CardShopInterface) {
   return (
     <Animated.View
       className="w-full"
@@ -19,7 +19,7 @@ export default function CardShop({ title, quantidade, index, ...props }: CardSho
         className="mt-3 h-[75px] flex-row items-center justify-between rounded-lg bg-blue-200 p-3 active:scale-95"
         {...props}>
         <View className="w-[65%] flex-row items-center justify-start">
-          <Ionicons name="bag-handle-outline" size={35} color="#3b82f6" />
+          <Ionicons name="grid-outline" size={35} color="#3b82f6" />
           <SubTitleIcon title={title} />
         </View>
 
