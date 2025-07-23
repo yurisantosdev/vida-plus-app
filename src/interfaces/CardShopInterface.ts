@@ -4,5 +4,6 @@ import { TouchableOpacity } from 'react-native';
 export interface CardShopInterface extends ComponentProps<typeof TouchableOpacity> {
   title: string;
   quantidade: number;
+  index: number;
 }
 

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Text, View, ScrollView } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { BaseApp } from '~/components/BaseApp';
-import { Ionicons } from '@expo/vector-icons';
+import CardSaldos from '~/components/Finance/CardSaldos';
 
 export default function Finance() {
   return (
@@ -9,10 +9,8 @@ export default function Finance() {
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 32 }}>
-        <View className="mt-5 flex-row items-center justify-center gap-3">
-          <Ionicons name="warning-outline" size={38} color="#fbbf24" />
-
-          <Text className="text-center text-2xl font-bold text-amber-400">Em desenvolvimento!</Text>
+        <View className="flex-row flex-wrap justify-between gap-y-4 pl-4 pr-4">
+          <CardSaldos />
         </View>
       </ScrollView>
     </BaseApp>

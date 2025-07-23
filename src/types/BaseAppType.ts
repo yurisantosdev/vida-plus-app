@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export type BaseAppType = {
     children: any
     loading: boolean
@@ -5,4 +7,5 @@ export type BaseAppType = {
     sidebar?: boolean
     title?: string
     voltar?: boolean
+    extraComponent?: ReactNode
 };

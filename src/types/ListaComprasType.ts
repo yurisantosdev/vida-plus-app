@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/array-type */
 import { ItensListaComprasType } from './ItensListaComprasType';
 import { UsuarioType } from './UsuariosType';
 

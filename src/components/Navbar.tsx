@@ -16,7 +16,7 @@ export default function Navbar() {
   ];
 
   return (
-    <View className="ml-4 mr-4 h-[60px] flex-row items-center justify-between rounded-3xl bg-white">
+    <View className="absolute bottom-2 ml-4 mr-4 h-[60px] flex-row items-center justify-between rounded-3xl bg-white">
       <View className="w-full flex-row items-center justify-between gap-3">
         {navItems.map((item: any, index: number) => {
           const isActive = route.name === item.route;

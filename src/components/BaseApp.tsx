@@ -25,7 +25,10 @@ export function BaseApp({ navbar = true, sidebar = true, voltar = false, ...prop
             </View>
           )}
         </View>
+
         {props.children}
+        {props.extraComponent}
+
         {navbar && <Navbar />}
       </View>
 
