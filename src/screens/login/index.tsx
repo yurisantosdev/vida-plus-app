@@ -36,7 +36,6 @@ export default function LoginPage() {
     const response = await login({ email, senha });
 
     if (response != undefined) {
-      console.log(response.user.uscodigo);
       await AsyncStorage.setItem('token', response.access_token);
       await AsyncStorage.setItem('uscodigo', response.user.uscodigo);
 
@@ -62,7 +61,7 @@ export default function LoginPage() {
           <View className="mb-4 w-full">
             <Text className="mb-1 ml-1 text-neutral-700">E-mail</Text>
             <TextInput
-              className="rounded-xl border border-neutral-300 bg-neutral-100 px-4 py-3 text-base text-neutral-900"
+              className="rounded-xl border border-neutral-300 bg-neutral-100 p-3 text-neutral-900"
               placeholder="Digite seu e-mail"
               placeholderTextColor="#A3A3A3"
               autoCapitalize="none"
@@ -74,9 +73,9 @@ export default function LoginPage() {
 
           <View className="mb-2 w-full">
             <Text className="mb-1 ml-1 text-neutral-700">Senha</Text>
-            <View className="flex-row items-center rounded-xl border border-neutral-300 bg-neutral-100 px-4">
+            <View className="flex-row items-center rounded-xl border border-neutral-300 bg-neutral-100 pr-4">
               <TextInput
-                className="flex-1 py-3 text-base text-neutral-900"
+                className="flex-1 p-3 text-neutral-900"
                 placeholder="Digite sua senha"
                 placeholderTextColor="#A3A3A3"
                 secureTextEntry={!mostrarSenha}

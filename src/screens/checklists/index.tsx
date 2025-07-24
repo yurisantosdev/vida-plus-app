@@ -18,6 +18,8 @@ export default function Checklists() {
   const navigation: any = useNavigation();
   const [checklists, setChecklists] = useState<Array<ChecklistsType>>();
   const [atualizar, setAtualizar] = useState<number>(0);
+  const [checklistsPendentes, setChecklistsPendentes] = useState<number>(0);
+  const [checklistsFinalizados, setChecklistsFinalizados] = useState<number>(0);
 
   useEffect(() => {
     const consultaChecklists = async () => {
@@ -27,6 +29,8 @@ export default function Checklists() {
 
         if (response !== undefined) {
           setChecklists(response.checklists);
+          setChecklistsFinalizados(response.finalizados);
+          setChecklistsPendentes(response.pendentes);
         }
       }
     };
@@ -73,19 +77,25 @@ export default function Checklists() {
               elevation: 8,
             }}>
             <Ionicons name="list-outline" size={45} color="#fff" />
-            <Text className="text-4xl font-bold text-white">22</Text>
+            <Text className="text-4xl font-bold text-white">{checklistsPendentes}</Text>
           </Animated.View>
 
-          <Animated.View
-            className="h-[80px] w-[50%] flex-row items-center justify-between rounded-xl bg-green-700 p-2"
-            style={{
-              transform: [{ translateY: ApplyAnimated(1).translateY }],
-              opacity: ApplyAnimated(1).opacity,
-              elevation: 8,
+          <TouchableOpacity
+            className="w-[50%]"
+            onPress={() => {
+              navigation.navigate('Finalizados');
             }}>
-            <Ionicons name="checkmark-done-outline" size={45} color="#fff" />
-            <Text className="text-4xl font-bold text-white">10</Text>
-          </Animated.View>
+            <Animated.View
+              className="h-[80px] flex-row items-center justify-between rounded-xl bg-green-700 p-2"
+              style={{
+                transform: [{ translateY: ApplyAnimated(1).translateY }],
+                opacity: ApplyAnimated(1).opacity,
+                elevation: 8,
+              }}>
+              <Ionicons name="checkmark-done-outline" size={45} color="#fff" />
+              <Text className="text-4xl font-bold text-white">{checklistsFinalizados}</Text>
+            </Animated.View>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -107,7 +117,7 @@ export default function Checklists() {
                   onPress={async () => {
                     if (item.ckcodigo) {
                       await AsyncStorage.setItem('ckcodigo', item.ckcodigo);
-                      navigation.navigate('CadastroChecklists');
+                      navigation.navigate('FazerChecklist');
                     }
                   }}
                 />
@@ -122,7 +132,7 @@ export default function Checklists() {
               size={50}
               color="#000"
             />
-            <Text className="text-md text-center text-black">Nenhum checklist cadastrado</Text>
+            <Text className="text-md text-center text-black">Nenhum checklist pendente</Text>
           </View>
         )}
       </View>

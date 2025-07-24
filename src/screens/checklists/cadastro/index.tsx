@@ -142,7 +142,7 @@ export default function CadastroChecklists() {
       <View className="pl-4 pr-4">
         <Text className="mt-6 text-lg font-medium text-neutral-700">Título do checklist</Text>
         <TextInput
-          className="mb-4 mt-1 rounded-lg border border-neutral-300 bg-neutral-100 px-4 py-3 text-base text-neutral-900"
+          className="mb-4 mt-1 rounded-lg border border-neutral-300 bg-neutral-100 p-3 text-neutral-900"
           placeholder="Ex: Checklist de limpeza"
           placeholderTextColor="#A3A3A3"
           value={tituloChecklist}
@@ -163,7 +163,7 @@ export default function CadastroChecklists() {
               </View>
 
               <TextInput
-                className="mt-1 rounded-md border border-neutral-200 bg-neutral-100 px-3 py-2 text-base text-neutral-900"
+                className="mb-4 mt-1 rounded-lg border border-neutral-300 bg-neutral-100 p-3 text-neutral-900"
                 placeholder="Título do item"
                 placeholderTextColor="#A3A3A3"
                 value={item.ictitulo}
@@ -171,12 +171,11 @@ export default function CadastroChecklists() {
               />
 
               <TextInput
-                className="mt-2 rounded-md border border-neutral-200 bg-neutral-100 px-3 py-2 text-base text-neutral-900"
+                className="mb-4 mt-1 rounded-lg border border-neutral-300 bg-neutral-100 p-3 text-neutral-900"
                 placeholder="Descrição do item"
                 placeholderTextColor="#A3A3A3"
                 value={item.icdescricao}
                 onChangeText={(text) => atualizarItem(index, 'icdescricao', text)}
-                multiline
               />
             </View>
           ))}

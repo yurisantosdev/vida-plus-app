@@ -13,6 +13,8 @@ import Perfil from '~/screens/perfil';
 import EsqueciSenha from '~/screens/esqueciSenha';
 import CadastroChecklists from '~/screens/checklists/cadastro';
 import { AlertNotificationRoot } from 'react-native-alert-notification';
+import FazerChecklist from '~/screens/checklists/fazer';
+import Finalizados from '~/screens/checklists/finalizados';
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -51,6 +53,8 @@ export default function App() {
               component={Checklists}
             />
             <Stack.Screen name="CadastroChecklists" component={CadastroChecklists} />
+            <Stack.Screen name="FazerChecklist" component={FazerChecklist} />
+            <Stack.Screen name="Finalizados" component={Finalizados} />
             <Stack.Screen name="Calendar" options={{ animation: 'none' }} component={Calendar} />
             <Stack.Screen name="Tasks" options={{ animation: 'none' }} component={Tasks} />
             <Stack.Screen name="Perfil" component={Perfil} />

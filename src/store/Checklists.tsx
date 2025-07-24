@@ -61,6 +61,25 @@ export const findAllChecklists = async (uscodigo: string) => {
     });
 };
 
+export const findFinalizados = async (uscodigo: string) => {
+  return await api
+    .get(`/checklists/find/finalizados/${uscodigo}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+      const dadosAlert: AlertDialogType = {
+        textBody: 'Não foi possível realizar a consulta dos checklists, por favor tente novamente!',
+        title: 'Oops!',
+        typeAlert: ALERT_TYPE.DANGER,
+        textButton: 'Fechar',
+      };
+
+      AlertDialog(dadosAlert);
+    });
+};
+
 export const findChecklist = async (ckcodigo: string) => {
   return await api
     .get(`/checklists/find/${ckcodigo}`)
