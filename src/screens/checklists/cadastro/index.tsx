@@ -22,37 +22,39 @@ export default function CadastroChecklists() {
   const [tituloChecklist, setTituloChecklist] = useState('');
   const [loading, setLoading] = useState<boolean>(false);
   const [ckcodigo, setCkcodigo] = useState<string | null>('');
-  const [itens, setItens] = useState<ItensChecklistsType[]>([
-    {
-      ictitulo: '',
-      icdescricao: '',
-      iccheck: false,
-    },
-  ]);
+  const [itens, setItens] = useState<ItensChecklistsType[]>();
   const navigation = useNavigation();
 
   function adicionarItem() {
-    setItens([...itens, { ictitulo: '', icdescricao: '', iccheck: false }]);
+    if (itens) {
+      setItens([...itens, { ictitulo: '', icdescricao: '', iccheck: false }]);
+    } else {
+      setItens([{ ictitulo: '', icdescricao: '', iccheck: false }]);
+    }
   }
 
   function atualizarItem(index: number, campo: string, valor: string) {
-    const novosItens: any = [...itens];
-    novosItens[index][campo] = valor;
-    setItens(novosItens);
+    if (itens) {
+      const novosItens: any = [...itens];
+      novosItens[index][campo] = valor;
+      setItens(novosItens);
+    }
   }
 
   function removerItem(index: number) {
-    const novosItens = [...itens];
-    novosItens.splice(index, 1);
-    setItens(novosItens);
+    if (itens) {
+      const novosItens = [...itens];
+      novosItens.splice(index, 1);
+      setItens(novosItens);
 
-    const dadosAlert: AlertToastType = {
-      textBody: 'Item removido com sucesso!',
-      title: 'Sucesso!',
-      typeAlert: ALERT_TYPE.SUCCESS,
-    };
+      const dadosAlert: AlertToastType = {
+        textBody: 'Item removido com sucesso!',
+        title: 'Sucesso!',
+        typeAlert: ALERT_TYPE.SUCCESS,
+      };
 
-    AlertToast(dadosAlert);
+      AlertToast(dadosAlert);
+    }
   }
 
   async function salvarAtualizarChecklist() {
@@ -61,6 +63,40 @@ export default function CadastroChecklists() {
     const uscodigo = await AsyncStorage.getItem('uscodigo');
 
     if (uscodigo) {
+      if (tituloChecklist.length <= 0) {
+        const dadosAlert: AlertToastType = {
+          textBody: 'Informe um título do checklist!',
+          title: 'Atenção!',
+          typeAlert: ALERT_TYPE.WARNING,
+        };
+
+        AlertToast(dadosAlert);
+        setLoading(false);
+        return;
+      }
+
+      if (itens == undefined) {
+        const dadosAlert: AlertToastType = {
+          textBody: 'Informe um item do checklist, pelo!',
+          title: 'Atenção!',
+          typeAlert: ALERT_TYPE.WARNING,
+        };
+
+        AlertToast(dadosAlert);
+        setLoading(false);
+        return;
+      } else if (!validacaoItens()) {
+        const dadosAlert: AlertToastType = {
+          textBody: 'Informe todos os campos obrigatórios!!',
+          title: 'Atenção!',
+          typeAlert: ALERT_TYPE.WARNING,
+        };
+
+        AlertToast(dadosAlert);
+        setLoading(false);
+        return;
+      }
+
       if (ckcodigo != null) {
         const dadosChecklist: ChecklistsType = {
           cktitulo: tituloChecklist,
@@ -112,6 +148,15 @@ export default function CadastroChecklists() {
     setLoading(false);
   }
 
+  function validacaoItens() {
+    if (!itens || itens.length === 0) return false;
+
+    return itens.every(
+      (item: ItensChecklistsType) =>
+        item.ictitulo.trim().length > 0 && item.icdescricao.trim().length > 0
+    );
+  }
+
   useEffect(() => {
     const consultaCodigoAtualizar = async () => {
       const codigoChecklist = await AsyncStorage.getItem('ckcodigo');
@@ -140,7 +185,10 @@ export default function CadastroChecklists() {
       navbar={false}
       sidebar={false}>
       <View className="pl-4 pr-4">
-        <Text className="mt-6 text-lg font-medium text-neutral-700">Título do checklist</Text>
+        <View className="mt-6 flex-row items-center justify-start gap-2">
+          <Text className=" text-lg font-bold text-neutral-700">Título do checklist</Text>
+          <Text className=" text-red-700">*</Text>
+        </View>
         <TextInput
           className="mb-4 mt-1 rounded-lg border border-neutral-300 bg-neutral-100 p-3 text-neutral-900"
           placeholder="Ex: Checklist de limpeza"
@@ -149,36 +197,40 @@ export default function CadastroChecklists() {
           onChangeText={setTituloChecklist}
         />
 
-        <Text className="mb-2 text-lg font-medium text-neutral-700">Itens do checklist</Text>
+        <View className="mt-6 flex-row items-center justify-start gap-2">
+          <Text className=" text-lg font-bold text-neutral-700">Itens do checklist</Text>
+          <Text className=" text-red-700">*</Text>
+        </View>
 
         <ScrollView className="max-h-[65%]">
-          {itens.map((item, index) => (
-            <View key={index} className="mb-4 rounded-xl border border-neutral-300 bg-white p-4">
-              <View className="mb-2 flex-row items-center justify-between">
-                <Text className="text-base font-semibold text-neutral-800">Item {index + 1}</Text>
+          {itens &&
+            itens.map((item, index) => (
+              <View key={index} className="mb-4 rounded-xl border border-neutral-300 bg-white p-4">
+                <View className="mb-2 flex-row items-center justify-between">
+                  <Text className="text-base font-semibold text-neutral-800">Item {index + 1}</Text>
 
-                <TouchableOpacity onPress={() => removerItem(index)}>
-                  <Ionicons name="trash-outline" size={22} color="#dc2626" />
-                </TouchableOpacity>
+                  <TouchableOpacity onPress={() => removerItem(index)}>
+                    <Ionicons name="trash-outline" size={22} color="#dc2626" />
+                  </TouchableOpacity>
+                </View>
+
+                <TextInput
+                  className="mb-4 mt-1 rounded-lg border border-neutral-300 bg-neutral-100 p-3 text-neutral-900"
+                  placeholder="Título do item"
+                  placeholderTextColor="#A3A3A3"
+                  value={item.ictitulo}
+                  onChangeText={(text) => atualizarItem(index, 'ictitulo', text)}
+                />
+
+                <TextInput
+                  className="mb-4 mt-1 rounded-lg border border-neutral-300 bg-neutral-100 p-3 text-neutral-900"
+                  placeholder="Descrição do item"
+                  placeholderTextColor="#A3A3A3"
+                  value={item.icdescricao}
+                  onChangeText={(text) => atualizarItem(index, 'icdescricao', text)}
+                />
               </View>
-
-              <TextInput
-                className="mb-4 mt-1 rounded-lg border border-neutral-300 bg-neutral-100 p-3 text-neutral-900"
-                placeholder="Título do item"
-                placeholderTextColor="#A3A3A3"
-                value={item.ictitulo}
-                onChangeText={(text) => atualizarItem(index, 'ictitulo', text)}
-              />
-
-              <TextInput
-                className="mb-4 mt-1 rounded-lg border border-neutral-300 bg-neutral-100 p-3 text-neutral-900"
-                placeholder="Descrição do item"
-                placeholderTextColor="#A3A3A3"
-                value={item.icdescricao}
-                onChangeText={(text) => atualizarItem(index, 'icdescricao', text)}
-              />
-            </View>
-          ))}
+            ))}
         </ScrollView>
 
         <TouchableOpacity
