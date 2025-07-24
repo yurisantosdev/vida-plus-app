@@ -44,8 +44,6 @@ export default function FazerChecklist() {
         ckfinalizado: finalizar,
       };
 
-      console.log(obj);
-
       const response = await updateChecklist(obj);
 
       if (response !== undefined) {

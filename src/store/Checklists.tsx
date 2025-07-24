@@ -12,7 +12,6 @@ export const createChecklist = async (data: ChecklistsType) => {
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
       const dadosAlert: AlertDialogType = {
         textBody: 'Não foi possível realizar registrar o checklist, por favor tente novamente!',
         title: 'Oops!',
@@ -49,7 +48,6 @@ export const findAllChecklists = async (uscodigo: string) => {
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
       const dadosAlert: AlertDialogType = {
         textBody: 'Não foi possível realizar a consulta dos checklists, por favor tente novamente!',
         title: 'Oops!',
@@ -68,7 +66,6 @@ export const findFinalizados = async (uscodigo: string) => {
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
       const dadosAlert: AlertDialogType = {
         textBody: 'Não foi possível realizar a consulta dos checklists, por favor tente novamente!',
         title: 'Oops!',
@@ -87,7 +84,6 @@ export const findChecklist = async (ckcodigo: string) => {
       return response.data;
     })
     .catch((error) => {
-      console.log(error);
       const dadosAlert: AlertDialogType = {
         textBody: 'Não foi possível realizar a consulta do checklist, por favor tente novamente!',
         title: 'Oops!',
