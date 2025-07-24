@@ -28,6 +28,7 @@ export default function FazerChecklist() {
   const navigation: any = useNavigation();
   const [atualizar, setAtualizar] = useState<number>(0);
   const [modalFinalizarChecklist, setModalFinalizarChecklist] = useState(false);
+  const [finalizado, setFinalizado] = useState(false);
 
   async function finalizarChecklist(finalizar: boolean) {
     setLoading(true);
@@ -90,7 +91,7 @@ export default function FazerChecklist() {
 
         if (respondeChecklist !== undefined) {
           const dadosChecklist: ChecklistsType = respondeChecklist.checklist;
-
+          setFinalizado(dadosChecklist.ckfinalizado ?? false);
           setTituloChecklist(dadosChecklist.cktitulo);
           setItens(dadosChecklist.itensChecklists ?? []);
         }
@@ -115,7 +116,12 @@ export default function FazerChecklist() {
   }, []);
 
   return (
-    <BaseApp loading={loading} title="Fazer checklist" voltar navbar={false} sidebar={false}>
+    <BaseApp
+      loading={loading}
+      title={finalizado ? 'Checklist Finalizado' : 'Fazer Checklist'}
+      voltar
+      navbar={false}
+      sidebar={false}>
       <View className="pl-4 pr-4">
         <Title title={tituloChecklist} />
 
@@ -128,8 +134,10 @@ export default function FazerChecklist() {
                 <TouchableOpacity
                   key={index}
                   onPress={() => {
-                    changeItemChecklist(item);
-                    itens[index].iccheck = !itens[index].iccheck;
+                    if (!finalizado) {
+                      changeItemChecklist(item);
+                      itens[index].iccheck = !itens[index].iccheck;
+                    }
                   }}
                   className={`mt-2 flex-row items-start rounded-lg p-3 ${item.iccheck ? 'bg-blue-300' : 'bg-white'}`}>
                   <View className="flex-row items-center justify-between">
@@ -150,32 +158,46 @@ export default function FazerChecklist() {
         </View>
       </View>
 
-      <View className="absolute bottom-2 m-4">
-        <TouchableOpacity
-          className="mb-3 w-full rounded-xl bg-blue-600 py-4"
-          onPress={() => {
-            navigation.navigate('CadastroChecklists');
-          }}>
-          <Text className="text-center text-lg font-bold text-white">Editar</Text>
-        </TouchableOpacity>
+      <View className="absolute bottom-2 m-4 w-full">
+        {finalizado ? (
+          <View className="w-full">
+            <TouchableOpacity
+              className="m-auto mb-3 w-[40%] rounded-xl bg-red-600 py-4"
+              onPress={() => {
+                navigation.goBack();
+              }}>
+              <Text className="text-center text-lg font-bold text-white">Fechar</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View>
+            <TouchableOpacity
+              className="mb-3 w-full rounded-xl bg-blue-600 py-4"
+              onPress={() => {
+                navigation.navigate('CadastroChecklists');
+              }}>
+              <Text className="text-center text-lg font-bold text-white">Editar</Text>
+            </TouchableOpacity>
 
-        <View className="flex-row items-center justify-between gap-2 rounded-xl">
-          <TouchableOpacity
-            className="w-[49%] rounded-xl bg-red-600 py-4"
-            onPress={async () => {
-              navigation.goBack();
-            }}>
-            <Text className="text-center text-lg font-bold text-white">Cancelar</Text>
-          </TouchableOpacity>
+            <View className="flex-row items-center justify-between gap-2 rounded-xl">
+              <TouchableOpacity
+                className="w-[49%] rounded-xl bg-red-600 py-4"
+                onPress={async () => {
+                  navigation.goBack();
+                }}>
+                <Text className="text-center text-lg font-bold text-white">Cancelar</Text>
+              </TouchableOpacity>
 
-          <TouchableOpacity
-            className="w-[49%] rounded-xl bg-green-600 py-4"
-            onPress={() => {
-              setModalFinalizarChecklist(true);
-            }}>
-            <Text className="text-center text-lg font-bold text-white">Salvar</Text>
-          </TouchableOpacity>
-        </View>
+              <TouchableOpacity
+                className="w-[49%] rounded-xl bg-green-600 py-4"
+                onPress={() => {
+                  setModalFinalizarChecklist(true);
+                }}>
+                <Text className="text-center text-lg font-bold text-white">Salvar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
       </View>
 
       <Modal
